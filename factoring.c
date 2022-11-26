@@ -3,22 +3,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void factoring(int n){
-    mpz_t a;
+void factoring(int a){
+  mpz_t n;
 
-    // Inicializamos las variables mpz_t.
-    mpz_init(a);
+  // Inicializamos las variables mpz_t.
+  mpz_init(n);
 
-    // Asignamos los valores del int n a mpz_t a.
-    mpz_set_ui(a, n);
+  // Asignamos los valores del int n a mpz_t a.
+  mpz_set_ui(n, a);
 
-    // Mostramos el numero a factorizar.
-    gmp_printf("El numero a factorizar es: %Zd\n", a);
+  // Mostramos el numero a factorizar.
+  gmp_printf("El numero a factorizar es: %Zd\n", n);
 }
 
 
 int main(int argc, char * argv[]){
-  int n;
+  int a;
 
   double time_spent = 0.0;
   clock_t begin = clock();
@@ -29,8 +29,8 @@ int main(int argc, char * argv[]){
     return 2;
   }
 
-  n = atoi(argv[1]);
-  factoring(n);
+  a = atoi(argv[1]);
+  factoring(a);
 
   clock_t end = clock();
   time_spent += (double)(end - begin) / CLOCKS_PER_SEC;

@@ -1,6 +1,7 @@
 #include "gmp.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 //Función para multiplicar dos numeros grandes
 void mult(int n, int m){
@@ -53,6 +54,9 @@ void mult(int n, int m){
 int main(int argc, char * argv[]){
     int n, m;
 
+    clock_t tiempo1, tiempo2;
+
+
     if (argc <= 2){
         printf ("Usage: %s <op1> <op2> \n", argv[0]);
         return 2;
@@ -61,7 +65,11 @@ int main(int argc, char * argv[]){
     n = atoi(argv[1]);
     m = atoi(argv[2]);
 
+    tiempo1 = clock();
     mult(n,m);
+    tiempo2 = clock();
+    printf("\n\tTiempo de ejecución: %f\n" , ( (double)tiempo2 - (double)tiempo1 ) / ( (double)CLOCKS_PER_SEC ) );
+    printf("\n");
 
     return 1;
 }
