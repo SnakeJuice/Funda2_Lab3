@@ -13,13 +13,10 @@ void gcd(int n, int m)
   mpz_init(b);
   mpz_init(r);
 
-  // Asignamos los valores del int n y m a las variables mpz_t a y b.
-  mpz_set_ui(a, n);
-  mpz_set_ui(b, m);
-  mpz_set_ui(r, 0);
-
-  // Imprimimos los valores de a y b en pantalla
-  //gmp_printf("a = %Zd y b = %Zd\n", a, b);
+  //Transformamos las variables int a enteros de GMP.
+  mpz_set_ui(a, n); //a = n
+  mpz_set_ui(b, m); //b = m
+  mpz_set_ui(r, 0); //r = 0
   
   // También se puede calcular con esta función para facilitar su uso
   //mpz_gcd(r, a, b);
@@ -27,13 +24,14 @@ void gcd(int n, int m)
   //Calculamos el máximo común divisor
   while (mpz_cmp_ui(b, 0) != 0)  // mpz_cmp_ui: Compare op1 and op2. Return a positive value if op1 > op2, zero if op1 = op2, or a negative value if op1 < op2. 
   {
-    mpz_mod(r, a, b);
-    mpz_set(a, b);
-    mpz_set(b, r);
+    mpz_mod(r, a, b); // r = a mod b
+    mpz_set(a, b); // a = b
+    mpz_set(b, r); // b = r
   }
 
   gmp_printf("El GCD es: %Zd \n", a);
 
+  //Liberamos la memoria.
   mpz_clear(a);
   mpz_clear(b);
   mpz_clear(r);
