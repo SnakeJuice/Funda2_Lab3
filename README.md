@@ -10,7 +10,7 @@ Se requiere de una distribución de Linux para ejecutar el programa, este fué c
 
 ### Librerias utilizadas
 
-* `GMP`
+* `GMP` - GNU Multiple Precision Arithmetic Library
 
 Para utilizar esta librería se puede ingresar a https://gmplib.org/ y seguir los pasos que se especifican en el manual para su descarga e instalación.
 
