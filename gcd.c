@@ -48,6 +48,12 @@ int main(int argc, char * argv[]){
     return 2;
   }
 
+  // Verificamos que los números sean positivos
+  if (argv[1][0] == '-' || argv[2][0] == '-') {
+    printf("Error: Ambos operandos deben ser enteros positivos.\n");
+    return 2;
+  }
+
   n = atoi(argv[1]);
   m = atoi(argv[2]);
 

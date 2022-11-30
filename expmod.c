@@ -55,6 +55,12 @@ int main(int argc, char * argv[]){
     return 2;
   }
 
+  // Verificamos que los números sean positivos
+  if (argv[1][0] == '-' || argv[2][0] == '-') {
+    printf("Error: Ambos operandos deben ser enteros positivos.\n");
+    return 2;
+  }
+
   a = atoi(argv[1]);
   e = atoi(argv[2]);
  
