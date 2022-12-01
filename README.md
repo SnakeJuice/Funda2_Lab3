@@ -20,7 +20,7 @@ sudo apt-get install libgmp3-dev
 ```
 
 ## Como compilar
-Para compilar solo se utiliza gcc, luego el nombre del programa en c y según lo especificado ocupando el comando -o se puede cambiar el nombre del programa compilado a 'bfnp', el ultimo atributo '-lgmp' es para cargar la libreria GMP
+Para compilar solo se utiliza gcc, luego el nombre del programa en c y según lo especificado ocupando el comando -o se puede cambiar el nombre del programa compilado a 'bfnp', el ultimo atributo '-lgmp' es para cargar la librería GMP
 ```
 gcc 'nombre_del_programa'.c -o bfnp -lgmp
 ```
