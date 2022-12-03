@@ -1,5 +1,4 @@
 #include "gmp.h"
-#include <math.h>
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -22,8 +21,14 @@ void sieve_of_eratosthenes(int a){
     array[0] = 0;
     array[1] = 0;
 
-    // Iteramos sobre los números del 2 al n y si el número es primo, iteramos sobre sus múltiplos y los marcamos como no primos
-    for (i = 2; i <= sqrt(mpz_get_ui(n)); i++){
+    mpz_t root;
+    mpz_init(root);
+
+    // Calculamos la raíz cuadrada de n
+    mpz_sqrt(root, n);
+
+    // Iteramos sobre los números del 2 al sqrt(n) y si el número es primo, iteramos sobre sus múltiplos y los marcamos como no primos
+    for (i = 2; i <= mpz_get_ui(root); i++){
         if (array[i] == 1){
             for (j = i*i; j <= mpz_get_ui(n); j += i){
                 array[j] = 0;
@@ -32,12 +37,12 @@ void sieve_of_eratosthenes(int a){
     }
 
     // Imprimimos todos los numeros primos
-    //for (i = 0; i <= mpz_get_ui(n); i++){
-    //    if (array[i] == 1){
-    //        printf("%d ", i);
-    //    }
-    //}
-    //printf("\n");
+    for (i = 0; i <= mpz_get_ui(n); i++){
+        if (array[i] == 1){
+            printf("%d ", i);
+        }
+    }
+    printf("\n");
 
     // Creamos un arreglo para guardar los factores primos
     int *factors = (int *)malloc((mpz_get_ui(n)+1)*sizeof(int));
@@ -58,6 +63,7 @@ void sieve_of_eratosthenes(int a){
     free(array);
     free(factors);
     mpz_clear(n);
+    mpz_clear(root);
 
 return;
 }

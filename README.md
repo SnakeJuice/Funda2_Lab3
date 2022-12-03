@@ -2,7 +2,7 @@
 * `mult.c` - Programa para multiplicar números grandes implementado con GMP
 * `gcd.c` - Programa para obtener el máximo común divisor de números grandes utilizando el algoritmo Euclidiano e implementado con GMP
 * `expmod.c` - Programa para calcular la potencia de números grandes implementado con GMP
-* `factoring.c` Programa para obtener la factorización de números grandes utilizando el algoritmo Trial Division y Sieve de Eratothenes implementado con GMP
+* `factors.c` Programa para obtener la factorización de números grandes utilizando el algoritmo Trial Division y Sieve de Eratothenes implementado con GMP
 
 ## Requisitos para compilación y ejecución
 
