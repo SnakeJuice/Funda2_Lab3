@@ -32,15 +32,31 @@ void sieve_of_eratosthenes(int a){
     }
 
     // Imprimimos todos los numeros primos
-    for (i = 0; i <= mpz_get_ui(n); i++){
-        if (array[i] == 1){
-            printf("%d ", i);
+    //for (i = 0; i <= mpz_get_ui(n); i++){
+    //    if (array[i] == 1){
+    //        printf("%d ", i);
+    //    }
+    //}
+    //printf("\n");
+
+    // Creamos un arreglo para guardar los factores primos
+    int *factors = (int *)malloc((mpz_get_ui(n)+1)*sizeof(int));
+
+
+    while (mpz_cmp_ui(n, 1) != 0){ // Mientras n sea diferente de 1
+        for (i = 2; i <= mpz_get_ui(n); i++){ // Iteramos sobre los números del 2 al n
+            if (array[i] == 1 && mpz_divisible_ui_p(n, i) != 0){ // Si el número es primo y es factor de n
+                mpz_divexact_ui(n, n, i); // Dividimos n entre el número primo
+                printf("%d ", i); // Imprimimos el factor primo
+                break; // Salimos del ciclo
+            }
         }
     }
     printf("\n");
 
     // Liberamos la memoria
     free(array);
+    free(factors);
     mpz_clear(n);
 
 return;
