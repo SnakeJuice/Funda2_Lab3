@@ -8,7 +8,7 @@ void expmod(mpz_t a,  mpz_t e){
 	mpz_init(result);
 	mpz_set_ui(result, 0);
 
-
+	
 	if (mpz_cmp_si(e,0) == 0) { // If exponent is zero
 		mpz_set_ui(result, 1); // result = 1
 		gmp_printf("\nEl resultado es: %Zd \n",result);

@@ -7,15 +7,19 @@
 void sieve_of_eratosthenes(mpz_t n){
     int i, j;
 
+	mpz_t *array;
+	mpz_init(*array);
+
     // Creamos un arreglo de tamaño n+1 e inicializamos todos sus elementos en 1
-    int *array = (int *)malloc((mpz_get_ui(n)+1)*sizeof(int));
+    array = (mpz_t *)malloc((mpz_get_ui(n)+1)*sizeof(mpz_t));
+
     for (i = 0; i <= mpz_get_ui(n); i++){
-        array[i] = 1;
+		mpz_init_set_ui(array[i], 1);
     }
 
     // Inicializamos los primeros dos números como no primos
-    array[0] = 0;
-    array[1] = 0;
+	mpz_init_set_ui(array[0], 0);
+	mpz_init_set_ui(array[1], 0);
 
     mpz_t root;
     mpz_init(root);
@@ -25,9 +29,9 @@ void sieve_of_eratosthenes(mpz_t n){
 
     // Iteramos sobre los números del 2 al sqrt(n) y si el número es primo, iteramos sobre sus múltiplos y los marcamos como no primos
     for (i = 2; i <= mpz_get_ui(root); i++){
-        if (array[i] == 1){
+        if (mpz_cmp_ui(array[i], 1) == 0){
             for (j = i*i; j <= mpz_get_ui(n); j += i){
-                array[j] = 0;
+				mpz_init_set_ui(array[j], 0);
             }
         }
     }
@@ -41,12 +45,14 @@ void sieve_of_eratosthenes(mpz_t n){
     //printf("\n");
 
     // Creamos un arreglo para guardar los factores primos
-    int *factors = (int *)malloc((mpz_get_ui(n)+1)*sizeof(int));
+	mpz_t *factors;
+	mpz_init(*factors);
+    factors = (mpz_t *)malloc((mpz_get_ui(n)+1)*sizeof(mpz_t));
 
 
     while (mpz_cmp_ui(n, 1) != 0){ // Mientras n sea diferente de 1
         for (i = 2; i <= mpz_get_ui(n); i++){ // Iteramos sobre los números del 2 al n
-            if (array[i] == 1 && mpz_divisible_ui_p(n, i) != 0){ // Si el número es primo y es factor de n
+            if (mpz_cmp_ui(array[i], 1) == 0 && mpz_divisible_ui_p(n, i) != 0){ // Si el número es primo y es factor de n
                 mpz_divexact_ui(n, n, i); // Dividimos n entre el número primo
                 printf("%d ", i); // Imprimimos el factor primo
                 break; // Salimos del ciclo
@@ -56,8 +62,8 @@ void sieve_of_eratosthenes(mpz_t n){
     printf("\n");
 
     // Liberamos la memoria
-    free(array);
-    free(factors);
+    //mpz_clear(array);
+	//mpz_clear(factors);
     mpz_clear(n);
     mpz_clear(root);
 
