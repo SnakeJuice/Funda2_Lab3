@@ -4,18 +4,10 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-void gcd(int n, int m)
+void gcd(mpz_t a, mpz_t b)
 {
-  mpz_t a, b, r;
-
-  // Inicializamos las variables mpz_t
-  mpz_init(a); 
-  mpz_init(b);
+  mpz_t r;
   mpz_init(r);
-
-  //Transformamos las variables int a enteros de GMP.
-  mpz_set_ui(a, n); //a = n
-  mpz_set_ui(b, m); //b = m
   mpz_set_ui(r, 0); //r = 0
   
   // También se puede calcular con esta función para facilitar su uso
@@ -29,7 +21,7 @@ void gcd(int n, int m)
     mpz_set(b, r); // b = r
   }
 
-  gmp_printf("El GCD es: %Zd \n", a);
+  gmp_printf("\nEl GCD es: %Zd \n", a);
 
   //Liberamos la memoria.
   mpz_clear(a);
@@ -39,29 +31,33 @@ void gcd(int n, int m)
 }
 
 int main(int argc, char * argv[]){
-  int n, m;
+	mpz_t n, m;
 
-  clock_t tiempo1, tiempo2;
+	mpz_init(n);
+	mpz_init(m);
 
-  if (argc <= 2){
-    printf ("Usage: %s <op1> <op2> \n", argv[0]);
-    return 2;
-  }
+	clock_t tiempo1, tiempo2;
 
-  // Verificamos que los números sean positivos
-  if (argv[1][0] == '-' || argv[2][0] == '-') {
-    printf("Error: Ambos operandos deben ser enteros positivos.\n");
-    return 2;
-  }
+	if (argc <= 2){
+    	printf ("Usage: %s <op1> <op2> \n", argv[0]);
+    	return 2;
+  	}
 
-  n = atoi(argv[1]);
-  m = atoi(argv[2]);
+  	// Verificamos que los números sean positivos
+  	if (argv[1][0] == '-' || argv[2][0] == '-') {
+    	printf("Error: Ambos operandos deben ser enteros positivos.\n");
+    	return 2;
+  	}
 
-  tiempo1 = clock();
-  gcd(n,m);
-  tiempo2 = clock();
-  printf("\n\tTiempo de ejecución: %f\n" , ( (double)tiempo2 - (double)tiempo1 ) / ( (double)CLOCKS_PER_SEC ) );
-  printf("\n");
+  	// Convertimos de string a mpz_t
+  	mpz_set_str(n, argv[1], 10);
+  	mpz_set_str(m, argv[2], 10);
 
-  return 0;
+  	tiempo1 = clock();
+  	gcd(n,m);
+  	tiempo2 = clock();
+  	printf("\n\tTiempo de ejecución: %f\n" , ( (double)tiempo2 - (double)tiempo1 ) / ( (double)CLOCKS_PER_SEC ) );
+  	printf("\n");
+
+  	return 0;
 }

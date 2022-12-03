@@ -4,11 +4,7 @@
 #include <stdlib.h>
 
 // Create a function for sieve of eratosthenes to find prime numbers up to n and save them in an array
-void sieve_of_eratosthenes(int a){
-    mpz_t n;
-    mpz_init(n);
-    mpz_set_ui(n, a);
-
+void sieve_of_eratosthenes(mpz_t n){
     int i, j;
 
     // Creamos un arreglo de tamaño n+1 e inicializamos todos sus elementos en 1
@@ -37,12 +33,12 @@ void sieve_of_eratosthenes(int a){
     }
 
     // Imprimimos todos los numeros primos
-    for (i = 0; i <= mpz_get_ui(n); i++){
-        if (array[i] == 1){
-            printf("%d ", i);
-        }
-    }
-    printf("\n");
+    //for (i = 0; i <= mpz_get_ui(n); i++){
+    //    if (array[i] == 1){
+    //        printf("%d ", i);
+    //    }
+    //}
+    //printf("\n");
 
     // Creamos un arreglo para guardar los factores primos
     int *factors = (int *)malloc((mpz_get_ui(n)+1)*sizeof(int));
@@ -70,7 +66,12 @@ return;
 
 
 int main(int argc, char * argv[]){
-    int n;
+    mpz_t n;
+
+    // Inicializamos n
+    mpz_init(n);
+
+    clock_t tiempo1, tiempo2;
 
     if(argc <= 1){
         printf("Usage: %s <n> \n", argv[0]);
@@ -83,7 +84,14 @@ int main(int argc, char * argv[]){
         return 2;
     }
 
-    n = atoi(argv[1]);
+    // Convertimos el número a mpz_t
+    mpz_set_str(n, argv[1], 10);
 
+    tiempo1 = clock();
     sieve_of_eratosthenes(n);
+    tiempo2 = clock();
+    printf("\n\n\tTiempo de ejecución: %f\n" , ( (double)tiempo2 - (double)tiempo1 ) / ( (double)CLOCKS_PER_SEC ) );
+    printf("\n");
+
+    return 0;
 }

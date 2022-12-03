@@ -4,24 +4,17 @@
 #include <time.h>
 
 //Función para multiplicar dos numeros grandes
-void mult(int n, int m){
-    mpz_t a, b, r;
-
-    // Inicializamos las variables mpz_t
-    mpz_init(a);
-    mpz_init(b);
+void mult(mpz_t a, mpz_t b){
+    mpz_t r;
     mpz_init(r);
 
-    //Transformamos las variables int a enteros de GMP.
-    mpz_set_ui(a, n);
-    mpz_set_ui(b, m);
     mpz_set_ui(r, 0);
 
     //Calculamos el producto de a y b que se guarda en r
     mpz_mul(r, a, b); // r = a * b
 
     // Imprimimos el resultado en pantalla
-    gmp_printf("%Zd * %Zd = %Zd\n", a, b, r);
+    gmp_printf("\nEl producto de a y b es: %Zd", r);
 
     // Limpiamos las variables mpz_t
     mpz_clear(a);
@@ -31,7 +24,11 @@ void mult(int n, int m){
 }
 
 int main(int argc, char * argv[]){
-    int n, m;
+    mpz_t n, m;
+
+    // Inicializamos las variables mpz_t
+    pz_init(n);
+    mpz_init(m);
 
     clock_t tiempo1, tiempo2;
 
@@ -47,13 +44,14 @@ int main(int argc, char * argv[]){
         return 2;
     }
 
-    n = atoi(argv[1]);
-    m = atoi(argv[2]);
+    // Convertimos de string a mpz_t
+    mpz_set_str(n, argv[1], 10);
+    mpz_set_str(m, argv[2], 10);
 
     tiempo1 = clock();
     mult(n,m);
     tiempo2 = clock();
-    printf("\n\tTiempo de ejecución: %f\n" , ( (double)tiempo2 - (double)tiempo1 ) / ( (double)CLOCKS_PER_SEC ) );
+    printf("\n\n\tTiempo de ejecución: %f\n" , ( (double)tiempo2 - (double)tiempo1 ) / ( (double)CLOCKS_PER_SEC ) );
     printf("\n");
 
     return 1;
