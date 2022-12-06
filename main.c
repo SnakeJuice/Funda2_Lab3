@@ -10,7 +10,7 @@ void expmod(mpz_t a,  mpz_t e){
 	mpz_set_ui(result, 0);
 
 	
-	if (mpz_cmp_si(e,0) == 0) { // If exponent is zero
+	if (mpz_cmp_si(e,0) == 0) { // Si exponente es cero
 		mpz_set_ui(result, 1); // result = 1
 		gmp_printf("\nEl resultado es: %Zd \n",result);
 		return;
@@ -19,7 +19,7 @@ void expmod(mpz_t a,  mpz_t e){
 
 	int i = mpz_sizeinbase(e, 2); // Obtenemos el tamaño del exponente en bits
 
-	// Loop a lo largo de los bits de e del segundo bit más alto al más bajo
+	// Loop a lo largo de los bits de e del segundo bit al último
 	for (i - 2; i >= 0; i--) {
 		mpz_mul(result,result,result); // result = (result)^2
 		if (mpz_tstbit(e, i)) { // Es el i-ésimo bit de e igual a 1?
