@@ -39,12 +39,17 @@ void expmod(mpz_t a,  mpz_t e){
 
 void factors(mpz_t n){
     int i, j;
+    
+    printf("Holaaaaa\n");
 
 	mpz_t *array;
 	mpz_init(*array);
+    
 
     // Creamos un arreglo de tamaño n+1 e inicializamos todos sus elementos en 1
     array = (mpz_t *)malloc((mpz_get_ui(n)+1)*sizeof(mpz_t));
+
+    
 
     for (i = 0; i <= mpz_get_ui(n); i++){
 		mpz_init_set_ui(array[i], 1);
@@ -161,12 +166,12 @@ int main(int argc, char * argv[]){
     // Verificar si el primer argumento es "mult", "expmod", "gcd o "factors"
     if (strcmp(argv[1], "-mult") == 0){
         if (argc <= 3){
-        printf ("Usage: %s <op1> <op2> \n", argv[0]);
-        return 2;
+            printf ("Usage: %s <op1> <op2> \n", argv[0]);
+            return 2;
         }
         if (argv[2][0] == '-' || argv[3][0] == '-') {
-        printf("Error: Ambos operandos deben ser enteros positivos.\n");
-        return 2;
+            printf("Error: Ambos operandos deben ser enteros positivos.\n");
+            return 2;
         }
 
         // Convertimos los argumentos de entrada en enteros grandes
@@ -184,12 +189,12 @@ int main(int argc, char * argv[]){
     }
     else if (strcmp(argv[1], "-expmod") == 0){
         if (argc <= 3){
-        printf ("Usage: %s <op1> <op2> \n", argv[0]);
-        return 2;
+            printf ("Usage: %s <op1> <op2> \n", argv[0]);
+            return 2;
         }
         if (argv[2][0] == '-' || argv[3][0] == '-') {
-        printf("Error: Ambos operandos deben ser enteros positivos.\n");
-        return 2;
+            printf("Error: Ambos operandos deben ser enteros positivos.\n");
+            return 2;
         }
 
         // Convertimos los argumentos de entrada en enteros grandes
@@ -208,12 +213,12 @@ int main(int argc, char * argv[]){
     }
     else if (strcmp(argv[1], "-gcd") == 0){
         if (argc <= 3){
-        printf ("Usage: %s <op1> <op2> \n", argv[0]);
-        return 2;
+            printf ("Usage: %s <op1> <op2> \n", argv[0]);
+            return 2;
         }
         if (argv[2][0] == '-' || argv[3][0] == '-') {
-        printf("Error: Ambos operandos deben ser enteros positivos.\n");
-        return 2;
+            printf("Error: Ambos operandos deben ser enteros positivos.\n");
+            return 2;
         }
         
         // Convertimos los argumentos de entrada en enteros grandes
@@ -242,6 +247,7 @@ int main(int argc, char * argv[]){
 
         // Convertimos los argumentos de entrada en enteros grandes
         mpz_set_str(n, argv[1], 10);
+        printf("HELLO WORLD!\n");
 
         tiempo1 = clock();
         // Llamamos a la función factors
