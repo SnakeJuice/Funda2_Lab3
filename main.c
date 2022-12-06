@@ -43,7 +43,6 @@ void factors(mpz_t n){
     printf("Holaaaaa\n");
 
 	mpz_t *array;
-	mpz_init(*array);
     
 
     // Creamos un arreglo de tamaño n+1 e inicializamos todos sus elementos en 1
@@ -84,7 +83,7 @@ void factors(mpz_t n){
 
     // Creamos un arreglo para guardar los factores primos
 	mpz_t *factors;
-	mpz_init(*factors);
+
     factors = (mpz_t *)malloc((mpz_get_ui(n)+1)*sizeof(mpz_t));
 
 
@@ -246,7 +245,7 @@ int main(int argc, char * argv[]){
         }
 
         // Convertimos los argumentos de entrada en enteros grandes
-        mpz_set_str(n, argv[1], 10);
+        mpz_set_str(n, argv[2], 10);
         printf("HELLO WORLD!\n");
 
         tiempo1 = clock();
