@@ -1,9 +1,4 @@
 # **Laboratorio 3**
-* `mult.c` - Programa para multiplicar números grandes implementado con GMP
-* `gcd.c` - Programa para obtener el máximo común divisor de números grandes utilizando el algoritmo Euclidiano e implementado con GMP
-* `expmod.c` - Programa para calcular la potencia de números grandes implementado con GMP
-* `factors.c` Programa para obtener los factores primos de un número utilizando el algoritmo Trial Division y Sieve de Eratothenes implementado con GMP
-
 ## Requisitos para compilación y ejecución
 
 Se requiere de una distribución de Linux para ejecutar el programa, este fué creado y testeado en ese ambiente.
@@ -26,7 +21,14 @@ gcc 'nombre_del_programa'.c -o bfnp -lgmp
 ```
 ## Como ejecutar
 ```
-./bfnp <número_1> ... <número_n>
+./bfnp -función <número_1> <número_2>
 ```
-Según lo requiera el programa, de todas maneras si se ejecuta sin ingresar ningúna variable se mostrará en consola como ejecutarlo de la manera correcta.
+Se pueden seleccionar las siguientes funciones:
+
+* `-mult` - Función para multiplicar números grandes implementado con GMP
+* `-gcd` - Función para obtener el máximo común divisor de números grandes utilizando el algoritmo Euclidiano e implementado con GMP
+* `-expmod` - Función para calcular la potencia de números grandes implementado con GMP
+* `-factors` Función para obtener los factores primos de un número utilizando el algoritmo Trial Division y Sieve de Eratothenes implementado con GMP
+
+Y se ingresa la cantidad de números lo requiera la función, de todas maneras si se ejecuta sin ingresar con algún error o ningúna variable se mostrará en consola como ejecutarlo de la manera correcta.
 
