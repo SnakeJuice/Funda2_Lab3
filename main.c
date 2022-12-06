@@ -100,8 +100,8 @@ void factors(mpz_t n){
     printf("\n");
 
     // Liberamos la memoria
-    mpz_clear(array);
-	mpz_clear(factors);
+    //mpz_clear(array);
+	//mpz_clear(factors);
     mpz_clear(n);
     mpz_clear(root);
 
