@@ -100,8 +100,8 @@ void factors(mpz_t n){
     printf("\n");
 
     // Liberamos la memoria
-    //mpz_clear(array);
-	//mpz_clear(factors);
+    mpz_clear(array);
+	mpz_clear(factors);
     mpz_clear(n);
     mpz_clear(root);
 
@@ -237,12 +237,12 @@ int main(int argc, char * argv[]){
     }
     else if (strcmp(argv[1], "-factors") == 0){
         if (argc <= 2){
-        printf ("Usage: %s <n> \n", argv[0]);
-        return 2;
+            printf ("Usage: %s <n> \n", argv[0]);
+            return 2;
         }
         if (argv[2][0] == '-') {
-        printf("Error: Ambos operandos deben ser enteros positivos.\n");
-        return 2;
+            printf("Error: Ambos operandos deben ser enteros positivos.\n");
+            return 2;
         }
 
         // Convertimos los argumentos de entrada en enteros grandes
