@@ -1,4 +1,4 @@
-# **Laboratorio 3**
+# **Operaciones con Números Grandes**
 ## Requisitos para compilación y ejecución
 
 Se requiere de una distribución de Linux para ejecutar el programa, este fué creado y testeado en ese ambiente.
