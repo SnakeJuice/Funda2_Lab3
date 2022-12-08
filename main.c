@@ -69,11 +69,7 @@ void factors(mpz_t n){
     }
     mpz_clear(root);
 
-    // Creamos un arreglo para guardar los factores primos
-	mpz_t *factors;
-
-    factors = (mpz_t *)malloc((mpz_get_ui(n)+1)*sizeof(mpz_t));
-
+    // Ahora aplicamos Trial Division
 
     while (mpz_cmp_ui(n, 1) != 0){ // Mientras n sea diferente de 1
         for (i = 2; mpz_cmp_ui(n,i) >= 0; i++){ // Iteramos sobre los números del 2 al n
@@ -87,6 +83,7 @@ void factors(mpz_t n){
     printf("\n");
 
     // Liberamos la memoria
+    free(array);
     mpz_clear(n);
 
 return;
