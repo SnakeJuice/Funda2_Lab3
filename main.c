@@ -1,4 +1,4 @@
-#include "gmp.h"
+#include <gmp.h>
 #include <time.h>
 #include <string.h>
 #include <stdio.h>
@@ -39,18 +39,13 @@ void expmod(mpz_t a,  mpz_t e){
 
 void factors(mpz_t n){
     int i, j;
-    
-    printf("Holaaaaa\n");
 
 	mpz_t *array;
-    
 
     // Creamos un arreglo de tamaño n+1 e inicializamos todos sus elementos en 1
     array = (mpz_t *)malloc((mpz_get_ui(n)+1)*sizeof(mpz_t));
 
-    
-
-    for (i = 0; i <= mpz_get_ui(n); i++){
+    for (i = 0; mpz_cmp_ui(n, i) >= 0; i++){ // Mientras i sea menor o igual a n
 		mpz_init_set_ui(array[i], 1);
     }
 
@@ -65,21 +60,14 @@ void factors(mpz_t n){
     mpz_sqrt(root, n);
 
     // Iteramos sobre los números del 2 al sqrt(n) y si el número es primo, iteramos sobre sus múltiplos y los marcamos como no primos
-    for (i = 2; i <= mpz_get_ui(root); i++){
+    for (i = 2; mpz_cmp_ui(root,i)  >= 0; i++){
         if (mpz_cmp_ui(array[i], 1) == 0){
-            for (j = i*i; j <= mpz_get_ui(n); j += i){
+            for (j = i*i; mpz_cmp_ui(root,j) >= 0; j += i){
 				mpz_init_set_ui(array[j], 0);
             }
         }
     }
-
-    // Imprimimos todos los numeros primos
-    //for (i = 0; i <= mpz_get_ui(n); i++){
-    //    if (array[i] == 1){
-    //        printf("%d ", i);
-    //    }
-    //}
-    //printf("\n");
+    mpz_clear(root);
 
     // Creamos un arreglo para guardar los factores primos
 	mpz_t *factors;
@@ -88,7 +76,7 @@ void factors(mpz_t n){
 
 
     while (mpz_cmp_ui(n, 1) != 0){ // Mientras n sea diferente de 1
-        for (i = 2; i <= mpz_get_ui(n); i++){ // Iteramos sobre los números del 2 al n
+        for (i = 2; mpz_cmp_ui(n,i) >= 0; i++){ // Iteramos sobre los números del 2 al n
             if (mpz_cmp_ui(array[i], 1) == 0 && mpz_divisible_ui_p(n, i) != 0){ // Si el número es primo y es factor de n
                 mpz_divexact_ui(n, n, i); // Dividimos n entre el número primo
                 printf("%d ", i); // Imprimimos el factor primo
@@ -99,10 +87,7 @@ void factors(mpz_t n){
     printf("\n");
 
     // Liberamos la memoria
-    //mpz_clear(array);
-	//mpz_clear(factors);
     mpz_clear(n);
-    mpz_clear(root);
 
 return;
 }
@@ -246,7 +231,6 @@ int main(int argc, char * argv[]){
 
         // Convertimos los argumentos de entrada en enteros grandes
         mpz_set_str(n, argv[2], 10);
-        printf("HELLO WORLD!\n");
 
         tiempo1 = clock();
         // Llamamos a la función factors
