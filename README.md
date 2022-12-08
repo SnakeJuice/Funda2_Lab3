@@ -28,15 +28,11 @@ Se pueden seleccionar las siguientes funciones:
 
 * `-mult` - Función para multiplicar números grandes implementado con GMP
 * `-gcd` - Función para obtener el máximo común divisor de números grandes utilizando el algoritmo Euclidiano e implementado con GMP
-* `-expmod` - Función para calcular la potencia de números grandes implementado con GMP. [^1]
-* `-factors` Función para obtener los factores primos de un número utilizando el algoritmo Trial Division y Sieve de Eratothenes implementado con GMP. [^2]
+* `-expmod` - Función para calcular la potencia de números grandes implementado con GMP.
+* `-factors` Función para obtener los factores primos de un número utilizando el algoritmo Trial Division y Sieve de Eratothenes implementado con GMP.
 
 En el caso de necesitar ver como se ejecuta cada función
 
 ```
 ./bfnp -h
 ```
-
-[^1]: Esta implementación utiliza mucha memoria a pesar de que `expmod` manipula bits aun así tiene ese defecto.
-
-[^2]: Esta otra implementación también utiliza mucha memoria y al ingresar un número mayor a 8 digitos el Kernel de Linux "mata" al programa al utilizar mucha memoria.

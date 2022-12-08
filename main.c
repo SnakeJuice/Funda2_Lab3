@@ -2,6 +2,7 @@
 #include <time.h>
 #include <string.h>
 #include <stdio.h>
+#include <stdbool.h>
 #include <stdlib.h>
 clock_t tiempo1, tiempo2; // Variables para medir el tiempo de ejecución
 
@@ -46,61 +47,96 @@ void expmod(mpz_t a,  mpz_t e){
 }
 
 void factors(mpz_t n){
-    int i, j;
 
-	mpz_t *array;
+    // Calculamos la raíz cuadrada de n
+    mpz_t root;
+    mpz_init(root);
+    mpz_sqrt(root, n);
+	
+	// Calculamos el número de elementos necesarios para el array
+	mpz_t num_elements;
+    mpz_init(num_elements);
+    mpz_set(num_elements, root); // num_elements = root
+    mpz_sizeinbase(num_elements, 10); // num_elements = tamaño de la raíz cuadrada en base 10
+    mpz_add_ui(num_elements, num_elements, 1); // num_elements = num_elements + 1
 
-    // Creamos un arreglo de tamaño n+1 e inicializamos todos sus elementos en 1
-    array = (mpz_t *)malloc((mpz_get_ui(n)+1)*sizeof(mpz_t));
+    // Creamos un array para almacenar los números primos desde 2 a sqrt(n)
+    mpz_t *primes = malloc(mpz_get_ui(num_elements) * sizeof(mpz_t));
+
+	/*
+    // Creamos un array para almacenar los números primos desde 2 a sqrt(n)
+    mpz_t num_elements;
+    mpz_init_set(num_elements, root);
+    mpz_add_ui(num_elements, num_elements, 1);
+    mpz_t *primes = malloc(mpz_get_ui(num_elements) * sizeof(mpz_t));
+	*/
+
+    // Inicializamos los dos primeros números primos
+    mpz_init_set_ui(primes[0], 2);
+    mpz_init_set_ui(primes[1], 3);
 
     tiempo1 = clock(); // Iniciamos la medición del tiempo de ejecución
 
-    for (i = 0; mpz_cmp_ui(n, i) >= 0; i++){ // Mientras i sea menor o igual a n
-		mpz_init_set_ui(array[i], 1);
-    }
+    // Iteramos sobre el rango 5 a sqrt(n) y almacenamos todos los números primos en el array
+    int i = 2;
+    mpz_t jp;
+    mpz_init(jp);
+    mpz_set_ui(jp, 5);
 
-    // Inicializamos los primeros dos números como no primos
-	mpz_init_set_ui(array[0], 0);
-	mpz_init_set_ui(array[1], 0);
+    for (int j = 5; mpz_cmp_ui(root, j) >= 0; j += 2) // Mientras j <= sqrt(n)
+    {
+        bool is_prime = true;
+        for (int k = 0; k < i && is_prime; k++) // Mientras k < i y is_prime es true
+        {
+            mpz_set_ui(jp, j); // jp = j
+            mpz_t tmp; 
+            mpz_init(tmp);
+            mpz_mod(tmp, jp, primes[k]); // tmp = jp % primes[k]
 
-    mpz_t root;
-    mpz_init(root);
-
-    // Calculamos la raíz cuadrada de n
-    mpz_sqrt(root, n);
-
-    // Iteramos sobre los números del 2 al sqrt(n) y si el número es primo, iteramos sobre sus múltiplos y los marcamos como no primos
-    for (i = 2; mpz_cmp_ui(root,i)  >= 0; i++){
-        if (mpz_cmp_ui(array[i], 1) == 0){
-            for (j = i*i; mpz_cmp_ui(root,j) >= 0; j += i){
-				mpz_init_set_ui(array[j], 0);
+            if (mpz_cmp_ui(tmp, 0) == 0) // Si tmp es igual a 0
+            {
+                is_prime = false; // j no es primo
             }
+
+            mpz_clear(tmp); // Limpiamos tmp
+        }
+
+        if (is_prime) // Si j es primo
+        {
+            mpz_init_set_ui(primes[i], j); // primes[i] = j
+            i++;
         }
     }
-    mpz_clear(root);
-
-    // Iteramos sobre los números del 2 al n y si el número es primo y es factor de n, lo imprimimos
-    while (mpz_cmp_ui(n, 1) != 0){ // Mientras n sea diferente de 1
-        for (i = 2; mpz_cmp_ui(n,i) >= 0; i++){ // Iteramos sobre los números del 2 al n
-            if (mpz_cmp_ui(array[i], 1) == 0 && mpz_divisible_ui_p(n, i) != 0){ // Si el número es primo y es factor de n
-                mpz_divexact_ui(n, n, i); // Dividimos n entre el número primo
-                printf("%d ", i); // Imprimimos el factor primo
-                break; // Salimos del ciclo
-            }
-        }
-    }
-    printf("\n");
 
     tiempo2 = clock(); // Finalizamos la medición del tiempo de ejecución
 
+    // Iteramos sobre los primos y los imprimimos
+    mpz_t factor;
+    mpz_init_set_ui(factor, 2);
+    while (mpz_cmp_ui(n, 1) > 0) // Mientras n > 1
+    {
+        if (mpz_divisible_ui_p(n, mpz_get_ui(factor)) != 0) // Si n es divisible por factor
+        {
+            mpz_divexact_ui(n, n, mpz_get_ui(factor)); // n = n / factor
+            gmp_printf("%Zd ", factor); // Imprimimos factor
+        }
+        else
+        {
+            mpz_add_ui(factor, factor, 1); // factor = factor + 1
+        }
+    }
+
     //Imprimimos el tiempo de ejecución.
-    printf("\nTiempo de ejecución: %f segundos\n", (double)(tiempo2 - tiempo1) / CLOCKS_PER_SEC);
-
-    // Liberamos la memoria
-    free(array);
+    printf("\n\nTiempo de ejecución: %f segundos\n", (double)(tiempo2 - tiempo1) / CLOCKS_PER_SEC);
+    
+    // Limpiamos
     mpz_clear(n);
+    mpz_clear(num_elements);
+    mpz_clear(root);
+    mpz_clear(factor);
+    free(primes);
 
-return;
+    return;
 }
 
 void mult(mpz_t a, mpz_t b){
