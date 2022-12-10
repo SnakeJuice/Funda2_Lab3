@@ -63,14 +63,6 @@ void factors(mpz_t n){
     // Creamos un array para almacenar los números primos desde 2 a sqrt(n)
     mpz_t *primes = malloc(mpz_get_ui(num_elements) * sizeof(mpz_t));
 
-	/*
-    // Creamos un array para almacenar los números primos desde 2 a sqrt(n)
-    mpz_t num_elements;
-    mpz_init_set(num_elements, root);
-    mpz_add_ui(num_elements, num_elements, 1);
-    mpz_t *primes = malloc(mpz_get_ui(num_elements) * sizeof(mpz_t));
-	*/
-
     // Inicializamos los dos primeros números primos
     mpz_init_set_ui(primes[0], 2);
     mpz_init_set_ui(primes[1], 3);
@@ -164,8 +156,7 @@ void mult(mpz_t a, mpz_t b){
 
 }
 
-void gcd(mpz_t a, mpz_t b)
-{
+void gcd(mpz_t a, mpz_t b){
     mpz_t r;
     mpz_init(r);
     mpz_set_ui(r, 0); //r = 0
